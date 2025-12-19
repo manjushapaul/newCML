@@ -68,7 +68,7 @@ export async function GET(
     }
 
     // Return PDF with proper headers
-    return new NextResponse(pdfBuffer, {
+    return new NextResponse(pdfBuffer as unknown as Blob, {
       headers: {
         'Content-Type': 'application/pdf',
         'Content-Disposition': `attachment; filename="${slug}-case-study.pdf"`,
