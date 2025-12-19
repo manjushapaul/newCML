@@ -10,8 +10,13 @@ export async function generatePDFBlob(data: CaseStudyData): Promise<Blob> {
     // Create React element
     const doc = React.createElement(CaseStudyPDF, { data })
     
-    // Generate PDF blob
-    const asPdf = pdf(doc)
+    // Verify it's a valid React element and cast to proper type
+    if (!React.isValidElement(doc)) {
+      throw new Error('Invalid React element created')
+    }
+    
+    // Generate PDF blob - cast to ReactElement for pdf() function
+    const asPdf = pdf(doc as React.ReactElement)
     const blob = await asPdf.toBlob()
     return blob
   } catch (error) {
