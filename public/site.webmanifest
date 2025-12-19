@@ -1,0 +1,11 @@
+{
+  "name": "Code Meld Labs",
+  "short_name": "CML",
+  "description": "Full-Stack Experts in Next.js, PHP & AI",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#6366f1",
+  "icons": []
+}
+
