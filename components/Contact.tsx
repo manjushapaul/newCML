@@ -66,7 +66,7 @@ export function Contact() {
         <div className="text-center mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">Get In Touch</h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
-            Have a project in mind? Let's discuss how we can help bring your ideas to life
+            Have a project in mind? Let&apos;s discuss how we can help bring your ideas to life
           </p>
         </div>
 
@@ -78,9 +78,9 @@ export function Contact() {
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Let's Connect</h3>
+              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Let&apos;s Connect</h3>
               <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8">
-                We're always excited to take on new challenges and collaborate on innovative projects.
+                We&apos;re always excited to take on new challenges and collaborate on innovative projects.
                 Reach out to discuss your next big idea!
               </p>
 
@@ -229,7 +229,7 @@ export function Contact() {
                     animate={{ opacity: 1, y: 0 }}
                     className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 text-sm"
                   >
-                    Message sent successfully! We'll get back to you soon.
+                    Message sent successfully! We&apos;ll get back to you soon.
                   </motion.div>
                 )}
                 {error && (
