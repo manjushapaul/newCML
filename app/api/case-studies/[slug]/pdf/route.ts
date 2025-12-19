@@ -52,12 +52,12 @@ export async function GET(
       const pdfElement = React.createElement(CaseStudyPDF, { data: caseStudyData })
       
       // Verify it's a valid React element before rendering
-      if (!pdfElement || typeof pdfElement !== 'object' || !pdfElement.$$typeof) {
+      if (!React.isValidElement(pdfElement)) {
         throw new Error('Invalid React element created')
       }
       
-      // renderToBuffer expects a React element
-      pdfBuffer = await renderToBuffer(pdfElement)
+      // renderToBuffer expects a React element - type assertion needed for @react-pdf/renderer
+      pdfBuffer = await renderToBuffer(pdfElement as React.ReactElement)
     } catch (renderError) {
       console.error('PDF render error:', renderError)
       const errorDetails = renderError instanceof Error ? renderError.message : String(renderError)
