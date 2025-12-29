@@ -3,9 +3,17 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
-import Image from 'next/image'
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react'
 import { TESTIMONIALS } from '@/lib/constants'
+
+// Function to extract initials from a name
+function getInitials(name: string): string {
+  const parts = name.trim().split(/\s+/)
+  if (parts.length === 1) {
+    return parts[0].substring(0, 2).toUpperCase()
+  }
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase()
+}
 
 export function Testimonials() {
   const ref = useRef(null)
@@ -22,7 +30,7 @@ export function Testimonials() {
 
   // Auto-advance carousel
   useEffect(() => {
-    const timer = setInterval(next, 5000)
+    const timer = setInterval(next, 8000)
     return () => clearInterval(timer)
   }, [])
 
@@ -40,19 +48,19 @@ export function Testimonials() {
           </p>
         </div>
 
-        <div className="relative max-w-4xl mx-auto">
+        <div className="relative max-w-6xl mx-auto">
           {/* Testimonial Cards */}
-          <div className="relative h-[500px] sm:h-[450px] md:h-[400px] lg:h-[350px]">
+          <div className="relative h-[600px] sm:h-[450px] md:h-[400px] lg:h-[350px]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={current}
-                initial={{ opacity: 0, x: 100 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -100 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
                 className="absolute inset-0"
               >
-              <div className="bg-white/90 backdrop-blur-xl rounded-2xl border border-gray-200 p-6 sm:p-8 md:p-12 h-full flex flex-col items-center justify-center text-center mx-4 sm:mx-0">
+              <div className="bg-white/90 backdrop-blur-xl rounded-2xl border border-gray-200 p-2 sm:p-4 md:p-6 h-full flex flex-col items-center justify-center text-center mx-4 sm:mx-0">
                   {/* Stars */}
                   <div className="flex gap-1 mb-6">
                     {[...Array(TESTIMONIALS[current].rating)].map((_, i) => (
@@ -61,20 +69,17 @@ export function Testimonials() {
                   </div>
 
                   {/* Quote */}
-                  <blockquote className="text-base sm:text-lg md:text-xl text-gray-700 mb-6 sm:mb-8 max-w-2xl px-4">
+                  <blockquote className="text-base sm:text-lg md:text-xl text-gray-700 mb-6 sm:mb-8 max-w-5xl px-4">
                     &quot;{TESTIMONIALS[current].content}&quot;
                   </blockquote>
 
                   {/* Author */}
                   <div className="flex flex-col items-center gap-4">
-                    <div className="relative w-16 h-16 rounded-full overflow-hidden ring-4 ring-slate-200">
-                      <Image
-                        src={TESTIMONIALS[current].image}
-                        alt={TESTIMONIALS[current].name}
-                        fill
-                        className="object-cover"
-                        sizes="64px"
-                      />
+                    {/* Coin-like circular avatar with initials */}
+                    <div className="relative w-16 h-16 rounded-full flex items-center justify-center font-bold text-lg text-gray-900 transition-all duration-300 hover:-translate-y-0.5 cursor-default bg-gradient-to-br from-[#D0D0D0] via-[#B8B8B8] to-[#A8A8A8] border-2 border-gray-500 shadow-[0_4px_8px_rgba(0,0,0,0.2),0_2px_4px_rgba(0,0,0,0.1),inset_0_1px_0_rgba(255,255,255,0.4)] hover:shadow-[0_6px_12px_rgba(168,168,168,0.5),0_4px_8px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.4)]">
+                      <span className="relative z-10">
+                        {getInitials(TESTIMONIALS[current].name)}
+                      </span>
                     </div>
                     <div>
                       <div className="font-bold text-lg">{TESTIMONIALS[current].name}</div>

@@ -12,6 +12,7 @@ export interface CaseStudyData {
   tags: string[]
   liveUrl?: string
   pdfUrl?: string
+  githubUrl?: string
   hero: {
     title: string
     summary: string
