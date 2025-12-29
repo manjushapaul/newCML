@@ -83,9 +83,6 @@ export function Testimonials() {
                     </div>
                     <div>
                       <div className="font-bold text-lg">{TESTIMONIALS[current].name}</div>
-                      <div className="text-gray-600 text-sm">
-                        {TESTIMONIALS[current].role}
-                      </div>
                     </div>
                   </div>
                 </div>
