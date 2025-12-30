@@ -3,11 +3,10 @@
 import { motion, useInView, useReducedMotion } from 'framer-motion'
 import { useRef } from 'react'
 import Image from 'next/image'
-import { Github } from 'lucide-react'
 import { TEAM_MEMBERS } from '@/lib/constants'
 
 interface SocialLink {
-  platform: 'github' | 'linkedin' | 'twitter'
+  platform: 'linkedin' | 'twitter'
   url: string
 }
 
@@ -128,9 +127,7 @@ export function ProfileSection() {
     image: member.image,
     description: member.bio,
     skills: member.skills,
-    socialLinks: [
-      { platform: 'github' as const, url: member.github },
-    ],
+    socialLinks: [],
   }))
 
   return (

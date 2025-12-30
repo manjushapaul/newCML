@@ -5,9 +5,8 @@ export const nexcentCaseStudy: CaseStudyData = {
   title: 'Nexcent - Business Growth Solutions',
   summary: 'Modern landing page for business growth solutions platform with interactive carousel and engaging sections',
   tags: ['Landing Page', 'Business Solutions', 'HTML/CSS', 'JavaScript'],
-  liveUrl: 'https://nexcent-git-main-manjusha-pauls-projects.vercel.app/',
+  liveUrl: 'https://nexcent-wine-eight.vercel.app/',
   pdfUrl: '/case-studies/nexcent.pdf',
-  githubUrl: 'https://github.com/manjushapaul/newCML',
   hero: {
     title: 'Nexcent - Business Growth Solutions',
     summary: 'A modern, responsive landing page for Nexcent, a business growth solutions platform. Features interactive hero carousel, client showcase, feature sections, testimonials, and compelling call-to-action sections designed to convert visitors into customers.',

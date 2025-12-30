@@ -1,6 +1,6 @@
 'use client'
 
-import { Github, Linkedin, ExternalLink } from 'lucide-react'
+import { Linkedin, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { SITE_CONFIG } from '@/lib/constants'
@@ -60,15 +60,6 @@ export function Footer() {
               {SITE_CONFIG.tagline}
             </p>
             <div className="flex space-x-4 mt-4">
-              <a
-                href={SITE_CONFIG.social.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-600 hover:text-slate-900 transition-colors"
-                aria-label="GitHub"
-              >
-                <Github className="w-5 h-5" />
-              </a>
               <a
                 href={SITE_CONFIG.social.linkedin}
                 target="_blank"

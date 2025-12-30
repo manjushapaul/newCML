@@ -11,8 +11,7 @@ export const SITE_CONFIG = {
     jobsCompleted: '15+',
   },
   social: {
-    github: 'https://github.com/code-meld-labs',
-    upwork: 'https://www.upwork.com/freelancers/codemeldlabs',
+    upwork: 'https://www.upwork.com/freelancers/~01a17527bca125e5b5?mp_source=share',
     linkedin: 'https://www.linkedin.com/company/code-meld-labs',
   },
 }
@@ -23,7 +22,6 @@ export const TEAM_MEMBERS = [
     role: 'Full-Stack Developer',
     image: '/images/profiles.jpg',
     skills: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS'],
-    github: 'https://github.com/manjushapaul',
     bio: 'Expert in modern web development with a focus on performance and user experience.',
   },
   {
@@ -31,7 +29,6 @@ export const TEAM_MEMBERS = [
     role: 'AI/ML Engineer',
     image: '/images/jaison.JPG',
     skills: ['Python', 'TensorFlow', 'OpenAI APIs', 'LangChain'],
-    github: 'https://github.com/jaisonjames',
     bio: 'Building intelligent automation solutions and AI-powered SaaS applications.',
   },
 ]
@@ -45,7 +42,6 @@ export const PROJECTS = [
     image: '/images/nexspot.png',
     tags: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
     liveUrl: 'https://collective-workspace.vercel.app',
-    githubUrl: 'https://github.com/code-meld-labs/collective-workspace',
     featured: true,
   },
   {
@@ -56,7 +52,6 @@ export const PROJECTS = [
     image: '/images/crypto.png',
     tags: ['Next.js', 'Chart.js', 'WebSocket', 'TailwindCSS'],
     liveUrl: 'https://crypto-latest.vercel.app/',
-    githubUrl: 'https://github.com/code-meld-labs/crypto-dashboard',
     featured: true,
   },
   {
@@ -67,7 +62,6 @@ export const PROJECTS = [
     image: '/images/Pontoon-Custom-Sports-Apparel.png',
     tags: ['Laravel', 'Vue.js', 'MySQL', 'Redis'],
     liveUrl: 'https://pontoonsports.com/',
-    githubUrl: 'https://github.com/code-meld-labs/ecommerce',
     featured: false,
   },
   {
@@ -77,8 +71,7 @@ export const PROJECTS = [
     description: 'Landing page design for automation platform with clean and professional layout.',
     image: '/images/nexcent.png',
     tags: ['Python', 'FastAPI', 'Celery', 'React'],
-    liveUrl: '',
-    githubUrl: 'https://github.com/code-meld-labs/automation-suite',
+    liveUrl: 'https://nexcent-wine-eight.vercel.app/',
     featured: false,
   },
   {
@@ -89,7 +82,6 @@ export const PROJECTS = [
     image: '/images/Simulator Screenshot - iPhone 17 Pro - 2025-12-18 at 14.35.23.png',
     tags: ['React Native', 'TypeScript', 'Pusher', 'Twilio', 'OpenTok', 'Real-time Chat'],
     liveUrl: 'https://psychicoz.com/',
-    githubUrl: 'https://github.com/code-meld-labs/psychicoz',
     featured: false,
   },
   {
@@ -100,7 +92,6 @@ export const PROJECTS = [
     image: '/images/psy.png',
     tags: ['Next.js', 'TypeScript', 'Real-time Chat', 'Video Calling', 'E-commerce'],
     liveUrl: 'https://psychicoz.com/',
-    githubUrl: 'https://github.com/code-meld-labs/psychicoz',
     featured: false,
   },
   {
@@ -111,7 +102,6 @@ export const PROJECTS = [
     image: '/images/pbhome.jpg',
     tags: ['Next.js 15', 'React 19', 'TypeScript', 'PHP', 'MySQL', 'Job Management'],
     liveUrl: 'https://peakplumbingandgas.com.au',
-    githubUrl: 'https://github.com/code-meld-labs/peak-group',
     featured: false,
   },
   {
@@ -122,7 +112,6 @@ export const PROJECTS = [
     image: '/images/ai.png',
     tags: ['Next.js', 'OpenAI', 'LangChain', 'Redis'],
     liveUrl: 'https://ai-chatbot-saas.vercel.app',
-    githubUrl: 'https://github.com/code-meld-labs/ai-chatbot',
     featured: true,
   },
 ]

@@ -150,14 +150,6 @@ export function Contact() {
                 <h4 className="font-semibold mb-4">Follow Us</h4>
                 <div className="flex gap-4">
                   <a
-                    href={SITE_CONFIG.social.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 bg-gray-100 rounded-lg hover:bg-slate-900 hover:text-white transition-colors"
-                  >
-                    GitHub
-                  </a>
-                  <a
                     href={SITE_CONFIG.social.upwork}
                     target="_blank"
                     rel="noopener noreferrer"

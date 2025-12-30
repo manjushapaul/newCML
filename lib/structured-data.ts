@@ -14,7 +14,6 @@ export const getOrganizationStructuredData = () => ({
     reviewCount: '10',
   },
   sameAs: [
-    SITE_CONFIG.social.github,
     SITE_CONFIG.social.linkedin,
     SITE_CONFIG.social.upwork,
   ],
@@ -26,7 +25,6 @@ export const getPersonStructuredData = (member: typeof TEAM_MEMBERS[0]) => ({
   name: member.name,
   jobTitle: member.role,
   description: member.bio,
-  url: member.github,
   worksFor: {
     '@type': 'Organization',
     name: SITE_CONFIG.name,
