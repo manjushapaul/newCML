@@ -9,8 +9,8 @@ export const chatbotCaseStudy: CaseStudyData = {
   pdfUrl: '/case-studies/chatbot.pdf',
   hero: {
     title: 'AI Chatbot SaaS Platform',
-    summary: 'A comprehensive multi-tenant SaaS platform built with Next.js for creating custom AI chatbots. Features support for multiple AI models (GPT-4, Claude), RAG (Retrieval-Augmented Generation) capabilities with document uploads, tenant-based isolation, and a modern dashboard for managing chatbots and conversations.',
-    tags: ['Next.js', 'TypeScript', 'OpenAI', 'LangChain', 'Multi-tenant', 'SaaS', 'RAG'],
+    summary: 'A cutting-edge multi-tenant SaaS platform for custom AI chatbots, <strong>rapidly vibe coded end-to-end with Cursor AI</strong> using Next.js—where <strong>frontend Tailwind CSS was meticulously handcrafted</strong> for pixel-perfect design. Delivers GPT-4/Claude model support, RAG with document uploads, tenant isolation, and a sleek dashboard—all generated through intuitive Cursor AI prompts that transformed natural language specs into production-ready code, enhanced by custom Tailwind styling done entirely by hand.',
+    tags: ['Next.js', 'TypeScript', 'OpenAI', 'LangChain', 'Multi-tenant', 'SaaS', 'RAG' , 'Tailwind CSS'],
   },
   overview: {
     client: 'AI Chatbot SaaS Platform - Multi-tenant Solution',
@@ -23,17 +23,17 @@ export const chatbotCaseStudy: CaseStudyData = {
       'Create a modern dashboard for chatbot management and analytics',
       'Implement conversation management and history tracking',
       'Ensure secure data isolation between tenants',
-      'Build subscription and billing management system',
+    
     ],
     stats: {
-      timeline: '8 weeks',
+      timeline: '3 weeks',
       stack: ['Next.js 15', 'TypeScript', 'OpenAI API', 'LangChain', 'PostgreSQL', 'Prisma', 'NextAuth.js', 'Tailwind CSS', 'Redis'],
       role: 'Full-Stack Developer & AI Integration Specialist',
       outcomes: [
         'Successfully launched multi-tenant SaaS platform',
         'Integrated multiple AI providers with unified interface',
         'Implemented secure tenant isolation and subdomain routing',
-        'RAG capabilities improved response accuracy by 60%',
+        
         'Scalable architecture supports 100+ tenants',
       ],
     },
@@ -62,6 +62,18 @@ export const chatbotCaseStudy: CaseStudyData = {
       alt: 'Live chatbot interface',
       caption: 'Tenant settings and configuration management',
       tag: 'Settings',
+    },
+    {
+      src: '/images/chat1.png',
+      alt: 'Chatbot widget configuration interface',
+      caption: 'Widget configuration panel for customizing chatbot appearance and behavior',
+      tag: 'Widget Configuration',
+    },
+    {
+      src: '/images/chat2.png',
+      alt: 'Chatbot widget editor with live preview',
+      caption: 'Edit widget settings with real-time preview showing theme, colors, and chat interface',
+      tag: 'Widget Editor',
     },
   ],
   process: [
@@ -96,13 +108,14 @@ export const chatbotCaseStudy: CaseStudyData = {
       'Successfully launched production-ready multi-tenant SaaS platform',
       'Multi-tenant architecture supports 100+ concurrent tenants with proper isolation',
       'Unified AI provider interface enables seamless switching between GPT-4 and Claude',
-      'RAG implementation improved response accuracy by 60% for domain-specific queries',
+    
       'Tenant subdomain routing provides clean, branded experience for each customer',
-      'Scalable infrastructure handles 10K+ monthly conversations',
+      
       'Secure data isolation ensures tenant privacy and compliance',
       'Modern dashboard improved user engagement and retention',
     ],
     nextSteps: [
+      'Build subscription and billing management system',
       'Add support for additional AI models (Gemini, Llama)',
       'Implement advanced analytics and reporting dashboard',
       'Add custom chatbot widget embedding for websites',

@@ -114,9 +114,8 @@ export function CaseStudyHero({ data }: CaseStudyHeroProps) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto"
-          >
-            {data.hero.summary}
-          </motion.p>
+            dangerouslySetInnerHTML={{ __html: data.hero.summary }}
+          />
 
           {/* Tags */}
           <motion.div
