@@ -24,7 +24,7 @@ export function CaseStudyGallery({ images }: CaseStudyGalleryProps) {
           </p>
         </div>
 
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {images.map((image, index) => (
             <motion.div
               key={index}
@@ -32,7 +32,7 @@ export function CaseStudyGallery({ images }: CaseStudyGalleryProps) {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group relative bg-gray-100 rounded-xl overflow-hidden border border-gray-200 hover:shadow-xl transition-all duration-300 mb-4 sm:mb-6 break-inside-avoid"
+              className="group relative bg-white rounded-xl overflow-hidden border border-gray-200 hover:shadow-xl transition-all duration-300"
             >
               <div className="relative w-full">
                 <Image

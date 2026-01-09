@@ -38,10 +38,22 @@ export const nexcentCaseStudy: CaseStudyData = {
   },
   gallery: [
     {
-      src: '/images/nexcent.png',
-      alt: 'Nexcent landing page overview',
-      caption: 'Complete landing page with hero section, features, and testimonials',
-      tag: 'Landing Page',
+      src: '/images/Hero-section.png',
+      alt: 'Nexcent hero section across devices',
+      caption: 'Responsive hero section showcasing business solutions across desktop, tablet, and mobile devices',
+      tag: 'Hero Section',
+    },
+    {
+      src: '/images/manage.png',
+      alt: 'Nexcent community management section',
+      caption: 'Community management features section highlighting membership organizations, associations, and clubs',
+      tag: 'Features',
+    },
+    {
+      src: '/images/Marketing.png',
+      alt: 'Nexcent marketing blog section',
+      caption: 'Marketing blog section with articles and call-to-action for personalized demo requests',
+      tag: 'Marketing',
     },
   ],
   process: [

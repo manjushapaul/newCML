@@ -45,13 +45,19 @@ export const peakGroupCaseStudy: CaseStudyData = {
   },
   gallery: [
     {
-      src: '/images/pb1.png',
+      src: '/images/pk1.png',
+      alt: 'Peak Group job management system interface',
+      caption: '24/7 Sunshine Coast plumbers delivering reliable residential, commercial and emergency solutions.',
+      tag: 'Home Page',
+    },
+    {
+      src: '/images/pbone.png',
       alt: 'Peak Group job management system interface',
       caption: 'Main dashboard showcasing job management interface with navigation and key features',
       tag: 'Dashboard',
     },
     {
-      src: '/images/pb2.png',
+      src: '/images/pbtwo.png',
       alt: 'Peak Group cost tracking and job details',
       caption: 'Job cost tracking interface with spreadsheet-like data entry and month-wise allocation',
       tag: 'Cost Tracking',
