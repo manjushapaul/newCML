@@ -19,10 +19,8 @@ const caseStudies = [
 ]
 
 const navLinks = [
-  { href: '#team', label: 'Team' },
   { href: '#projects', label: 'Projects' },
   { href: '#services', label: 'Services' },
-  { href: '#contact', label: 'Contact' },
 ]
 
 export function Navbar() {
@@ -30,6 +28,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [isCaseStudiesOpen, setIsCaseStudiesOpen] = useState(false)
   const [isMobileCaseStudiesOpen, setIsMobileCaseStudiesOpen] = useState(false)
+  const [activeSection, setActiveSection] = useState<string>('')
   const dropdownRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
   const router = useRouter()
@@ -41,6 +40,68 @@ export function Navbar() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // Track active section based on scroll position and hash
+  useEffect(() => {
+    if (pathname !== '/') {
+      // On case study pages, check if we're on a case study page
+      const isCaseStudyPage = pathname.startsWith('/case-studies/')
+      setActiveSection(isCaseStudyPage ? 'case-studies' : '')
+      return
+    }
+
+    let lastHashUpdate = Date.now()
+    const HASH_UPDATE_COOLDOWN = 500 // 500ms cooldown after hash change
+
+    const updateActiveSection = () => {
+      const hash = window.location.hash
+      if (hash) {
+        setActiveSection(hash)
+        lastHashUpdate = Date.now()
+      }
+    }
+
+    // Initial check
+    updateActiveSection()
+
+    // Use IntersectionObserver to detect which section is in view
+    const sections = ['#projects', '#services', '#contact']
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -70% 0px',
+      threshold: 0,
+    }
+
+    const observers: IntersectionObserver[] = []
+    
+    sections.forEach((sectionId) => {
+      const element = document.querySelector(sectionId)
+      if (element) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Only update if there's no hash in URL or enough time has passed since last hash update
+              const timeSinceHashUpdate = Date.now() - lastHashUpdate
+              if (!window.location.hash || timeSinceHashUpdate > HASH_UPDATE_COOLDOWN) {
+                setActiveSection(sectionId)
+              }
+            }
+          })
+        }, observerOptions)
+        observer.observe(element)
+        observers.push(observer)
+      }
+    })
+
+    window.addEventListener('hashchange', updateActiveSection)
+    window.addEventListener('scroll', updateActiveSection, { passive: true })
+    
+    return () => {
+      window.removeEventListener('hashchange', updateActiveSection)
+      window.removeEventListener('scroll', updateActiveSection)
+      observers.forEach((observer) => observer.disconnect())
+    }
+  }, [pathname])
 
   // Handle hash scrolling when navigating from other pages
   useEffect(() => {
@@ -99,6 +160,12 @@ export function Navbar() {
       setIsOpen(false)
       setIsCaseStudiesOpen(false)
       
+      // Update active section immediately
+      setActiveSection(href)
+      
+      // Update URL hash
+      window.history.pushState(null, '', href)
+      
       // Check if we're on the home page
       if (pathname === '/') {
         // On home page - just scroll to the section
@@ -115,12 +182,14 @@ export function Navbar() {
           const element = document.querySelector(href)
           if (element) {
             element.scrollIntoView({ behavior: 'smooth' })
+            setActiveSection(href)
           } else {
             // If element not found, try again after a bit more delay
             setTimeout(() => {
               const retryElement = document.querySelector(href)
               if (retryElement) {
                 retryElement.scrollIntoView({ behavior: 'smooth' })
+                setActiveSection(href)
               }
             }, 200)
           }
@@ -159,21 +228,28 @@ export function Navbar() {
 
           {/* Desktop Navigation - Center/Right */}
           <div className="hidden md:flex items-center space-x-10 relative z-50">
-            {navLinks.slice(0, 3).map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => {
-                  // Close dropdown first
-                  setIsCaseStudiesOpen(false)
-                  // Then handle the nav click
-                  handleNavClick(e, link.href)
-                }}
-                className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm font-medium relative z-[60]"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.slice(0, 3).map((link) => {
+              const isActive = activeSection === link.href
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => {
+                    // Close dropdown first
+                    setIsCaseStudiesOpen(false)
+                    // Then handle the nav click
+                    handleNavClick(e, link.href)
+                  }}
+                  className={`transition-colors duration-200 text-sm font-medium relative z-[60] ${
+                    isActive
+                      ? 'text-gray-900 font-semibold'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  {link.label}
+                </a>
+              )
+            })}
             
             {/* Case Studies Dropdown */}
             <div 
@@ -184,7 +260,11 @@ export function Navbar() {
             >
               <button
                 type="button"
-                className="flex items-center gap-1 text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm font-medium"
+                className={`flex items-center gap-1 transition-colors duration-200 text-sm font-medium ${
+                  activeSection === 'case-studies' || pathname.startsWith('/case-studies/')
+                    ? 'text-gray-900 font-semibold'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
                 onClick={(e) => {
                   e.stopPropagation()
                   setIsCaseStudiesOpen(!isCaseStudiesOpen)
@@ -225,19 +305,27 @@ export function Navbar() {
                   {/* Arrow */}
                   <div className="absolute top-1.5 left-1/2 transform -translate-x-1/2 w-3 h-3 bg-white border-l border-t border-gray-200/50 rotate-45"></div>
                   
-                  {caseStudies.map((study) => (
-                    <Link
-                      key={study.href}
-                      href={study.href}
-                      className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-150 border-b border-gray-100 last:border-b-0 first:pt-3"
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setIsCaseStudiesOpen(false)
-                      }}
-                    >
-                      <span className="font-medium">{study.label}</span>
-                    </Link>
-                  ))}
+                  {caseStudies.map((study) => {
+                    const isActive = pathname === study.href
+                    return (
+                      <Link
+                        key={study.href}
+                        href={study.href}
+                        className={`block px-4 py-2.5 text-sm transition-colors duration-150 border-b border-gray-100 last:border-b-0 first:pt-3 ${
+                          isActive
+                            ? 'bg-gray-50 text-gray-900 font-semibold'
+                            : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                        }`}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setIsCaseStudiesOpen(false)
+                          setActiveSection('case-studies')
+                        }}
+                      >
+                        <span className={isActive ? 'font-semibold' : 'font-medium'}>{study.label}</span>
+                      </Link>
+                    )
+                  })}
                 </div>
               </div>
             </div>
@@ -250,7 +338,11 @@ export function Navbar() {
                 // Then handle the nav click
                 handleNavClick(e, '#contact')
               }}
-              className="text-gray-600 hover:text-gray-900 transition-colors duration-200 text-sm font-medium relative z-[60]"
+              className={`transition-colors duration-200 text-sm font-medium relative z-[60] ${
+                activeSection === '#contact'
+                  ? 'text-gray-900 font-semibold'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
             >
               Contact
             </a>
@@ -277,22 +369,33 @@ export function Navbar() {
       {isOpen && (
         <div className="md:hidden bg-white border-t border-gray-200 shadow-lg">
           <div className="px-6 py-4 space-y-3">
-            {navLinks.slice(0, 3).map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="block py-2 text-gray-600 hover:text-gray-900 transition-colors font-medium"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.slice(0, 3).map((link) => {
+              const isActive = activeSection === link.href
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className={`block py-2 transition-colors font-medium ${
+                    isActive
+                      ? 'text-gray-900 font-semibold'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
+                >
+                  {link.label}
+                </a>
+              )
+            })}
             
             {/* Mobile Case Studies Dropdown */}
             <div className="border-t border-gray-200 pt-3 mt-3">
               <button
                 onClick={() => setIsMobileCaseStudiesOpen(!isMobileCaseStudiesOpen)}
-                className="flex items-center justify-between w-full py-2 text-gray-600 hover:text-gray-900 transition-colors font-medium"
+                className={`flex items-center justify-between w-full py-2 transition-colors font-medium ${
+                  activeSection === 'case-studies' || pathname.startsWith('/case-studies/')
+                    ? 'text-gray-900 font-semibold'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
               >
                 Case Studies
                 <ChevronDown 
@@ -304,19 +407,27 @@ export function Navbar() {
               
               {isMobileCaseStudiesOpen && (
                 <div className="mt-2 ml-4 space-y-1 border-l-2 border-gray-200 pl-4 transition-all duration-200">
-                  {caseStudies.map((study) => (
-                    <Link
-                      key={study.href}
-                      href={study.href}
-                      onClick={() => {
-                        setIsMobileCaseStudiesOpen(false)
-                        setIsOpen(false)
-                      }}
-                      className="block py-2 px-3 rounded-lg text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"
-                    >
-                      {study.label}
-                    </Link>
-                  ))}
+                  {caseStudies.map((study) => {
+                    const isActive = pathname === study.href
+                    return (
+                      <Link
+                        key={study.href}
+                        href={study.href}
+                        onClick={() => {
+                          setIsMobileCaseStudiesOpen(false)
+                          setIsOpen(false)
+                          setActiveSection('case-studies')
+                        }}
+                        className={`block py-2 px-3 rounded-lg text-sm transition-colors ${
+                          isActive
+                            ? 'bg-gray-50 text-gray-900 font-semibold'
+                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                        }`}
+                      >
+                        {study.label}
+                      </Link>
+                    )
+                  })}
                 </div>
               )}
             </div>
@@ -324,7 +435,11 @@ export function Navbar() {
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, '#contact')}
-              className="block py-2 text-gray-600 hover:text-gray-900 transition-colors font-medium border-t border-gray-200 pt-3 mt-3"
+              className={`block py-2 transition-colors font-medium border-t border-gray-200 pt-3 mt-3 ${
+                activeSection === '#contact'
+                  ? 'text-gray-900 font-semibold'
+                  : 'text-gray-600 hover:text-gray-900'
+              }`}
             >
               Contact
             </a>

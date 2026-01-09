@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { Linkedin, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
@@ -9,9 +10,71 @@ export function Footer() {
   const currentYear = new Date().getFullYear()
   const pathname = usePathname()
   const router = useRouter()
+  const [activeSection, setActiveSection] = useState<string>('')
+
+  // Track active section based on scroll position and hash
+  useEffect(() => {
+    if (pathname !== '/') {
+      setActiveSection('')
+      return
+    }
+
+    const updateActiveSection = () => {
+      const hash = window.location.hash
+      if (hash) {
+        setActiveSection(hash)
+      }
+    }
+
+    // Initial check
+    updateActiveSection()
+
+    // Use IntersectionObserver to detect which section is in view
+    const sections = ['#projects', '#services', '#contact']
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -70% 0px',
+      threshold: 0,
+    }
+
+    const observers: IntersectionObserver[] = []
+    
+    sections.forEach((sectionId) => {
+      const element = document.querySelector(sectionId)
+      if (element) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Only update if there's no hash in URL (to avoid conflicts with manual clicks)
+              if (!window.location.hash) {
+                setActiveSection(sectionId)
+              }
+            }
+          })
+        }, observerOptions)
+        observer.observe(element)
+        observers.push(observer)
+      }
+    })
+
+    window.addEventListener('hashchange', updateActiveSection)
+    window.addEventListener('scroll', updateActiveSection, { passive: true })
+    
+    return () => {
+      window.removeEventListener('hashchange', updateActiveSection)
+      window.removeEventListener('scroll', updateActiveSection)
+      observers.forEach((observer) => observer.disconnect())
+    }
+  }, [pathname])
 
   const handleQuickLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
+    
+    // Update active section immediately
+    setActiveSection(href)
+    
+    // Update URL hash
+    window.history.pushState(null, '', href)
     
     // Check if we're on the home page
     if (pathname === '/') {
@@ -28,12 +91,14 @@ export function Footer() {
         const element = document.querySelector(href)
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' })
+          setActiveSection(href)
         } else {
           // If element not found, try again after a bit more delay
           setTimeout(() => {
             const retryElement = document.querySelector(href)
             if (retryElement) {
               retryElement.scrollIntoView({ behavior: 'smooth' })
+              setActiveSection(href)
             }
           }, 200)
         }
@@ -87,18 +152,13 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <a 
-                  href="#team" 
-                  onClick={(e) => handleQuickLinkClick(e, '#team')}
-                  className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors"
-                >
-                  Team
-                </a>
-              </li>
-              <li>
-                <a 
                   href="#projects" 
                   onClick={(e) => handleQuickLinkClick(e, '#projects')}
-                  className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors"
+                  className={`transition-colors ${
+                    activeSection === '#projects'
+                      ? 'text-gray-900 font-semibold'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-primary'
+                  }`}
                 >
                   Projects
                 </a>
@@ -107,7 +167,11 @@ export function Footer() {
                 <a 
                   href="#services" 
                   onClick={(e) => handleQuickLinkClick(e, '#services')}
-                  className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors"
+                  className={`transition-colors ${
+                    activeSection === '#services'
+                      ? 'text-gray-900 font-semibold'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-primary'
+                  }`}
                 >
                   Services
                 </a>
@@ -116,7 +180,11 @@ export function Footer() {
                 <a 
                   href="#contact" 
                   onClick={(e) => handleQuickLinkClick(e, '#contact')}
-                  className="text-gray-600 dark:text-gray-400 hover:text-primary transition-colors"
+                  className={`transition-colors ${
+                    activeSection === '#contact'
+                      ? 'text-gray-900 font-semibold'
+                      : 'text-gray-600 dark:text-gray-400 hover:text-primary'
+                  }`}
                 >
                   Contact
                 </a>
